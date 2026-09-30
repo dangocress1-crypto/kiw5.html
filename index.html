@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nongkiw Shop - บริการดันแรงค์ & เติมเกม</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#0b0f19',
+                        'dark-card': '#111827',
+                        'accent-blue': '#38bdf8',
+                        'accent-cyan': '#06b6d4',
+                        'accent-glow': '#00f2fe'
+                    },
+                    boxShadow: {
+                        'glow-blue': '0 0 20px rgba(56, 189, 248, 0.35)',
+                        'glow-cyan': '0 0 25px rgba(6, 182, 212, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #38bdf8 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .modal {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        /* Custom Scrollbar */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #38bdf8;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start p-4 md:p-8 relative selection:bg-accent-blue selection:text-black">
+
+    <!-- Master Wrapper -->
+    <div class="w-full max-w-md mx-auto space-y-6">
+
+        <!-- Header / Logo Section -->
+        <header class="text-center space-y-3 pt-4">
+            <div class="relative inline-block">
+                <img src="IMG_5522.jpg" alt="Nongkiw Shop Logo" class="w-24 h-24 mx-auto rounded-full border-2 border-accent-blue shadow-glow-blue object-cover">
+                <span class="absolute bottom-0 right-0 w-4 h-4 bg-emerald-500 border-2 border-dark-bg rounded-full"></span>
+            </div>
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-wide text-gradient uppercase">Nongkiw Shop</h1>
+                <p class="text-xs text-accent-blue/80 tracking-widest mt-1">NONGKIW STORE - GAME SERVICES</p>
+            </div>
+        </header>
+
+        <!-- Banner Section -->
+        <div class="relative rounded-2xl overflow-hidden border border-accent-blue/30 shadow-glow-blue">
+            <img src="about.png" alt="Nongkiw Banner" class="w-full h-40 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-bg via-transparent to-transparent flex items-end p-4">
+                <p class="text-sm font-light text-gray-200">ยินดีให้บริการลูกค้าทุกคนครับ งานไว งานเร็ว สตรีมแชร์จอได้!</p>
+            </div>
+        </div>
+
+        <!-- Main Buttons / Menu Grid -->
+        <main class="space-y-4">
+            
+            <!-- Modal Trigger: บริการทั้งหมด & วิธีสั่งซื้อ -->
+            <button onclick="openModal('modal-services')" class="w-full p-4 bg-dark-card hover:bg-accent-blue/10 border border-accent-blue/40 hover:border-accent-blue rounded-2xl flex items-center justify-between transition-all group shadow-md">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-accent-blue/10 text-accent-blue rounded-xl group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-base font-semibold text-white group-hover:text-accent-blue transition-colors">บริการทั้งหมด & วิธีการสั่งซื้อ</div>
+                        <div class="text-xs text-gray-400">ดันแรงค์ 4v4, เติมไนโตร, กดกรอบ</div>
+                    </div>
+                </div>
+                <svg class="w-5 h-5 text-gray-400 group-hover:text-accent-blue group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+
+            <!-- Modal Trigger: ดูตัวอย่างงาน -->
+            <button onclick="openModal('modal-portfolio')" class="w-full p-4 bg-dark-card hover:bg-accent-cyan/10 border border-accent-cyan/40 hover:border-accent-cyan rounded-2xl flex items-center justify-between transition-all group shadow-md">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-accent-cyan/10 text-accent-cyan rounded-xl group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-base font-semibold text-white group-hover:text-accent-cyan transition-colors">ดูตัวอย่างงาน</div>
+                        <div class="text-xs text-gray-400">ภาพผลงานการให้บริการที่ผ่านมา</div>
+                    </div>
+                </div>
+                <svg class="w-5 h-5 text-gray-400 group-hover:text-accent-cyan group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+
+            <!-- Facebook Link Button -->
+            <a href="https://www.facebook.com/profile.php?id=61594785118393" target="_blank" class="w-full p-4 bg-gradient-to-r from-blue-600 to-accent-blue text-white font-medium rounded-2xl flex items-center justify-center gap-3 shadow-glow-blue hover:opacity-90 transition-all">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                <span>ติดต่อผ่าน Facebook Page</span>
+            </a>
+
+            <!-- Payment Info Trigger -->
+            <button onclick="openModal('modal-payment')" class="w-full p-3 bg-dark-card/60 hover:bg-dark-card border border-gray-800 hover:border-gray-700 rounded-xl flex items-center justify-center gap-2 text-xs text-gray-400 hover:text-white transition-all">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <span>ตรวจสอบช่องทางการชำระเงิน (เลขบัญชี)</span>
+            </button>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center pt-6 pb-4 border-t border-gray-800/60">
+            <div class="flex justify-center items-center gap-2 mb-1">
+                <svg class="w-4 h-4 text-accent-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L13.5 9.5L21 11L13.5 12.5L12 20L10.5 12.5L3 11L10.5 9.5L12 2Z"/></svg>
+                <span class="text-sm font-semibold text-gradient uppercase">Nongkiw Store</span>
+                <svg class="w-4 h-4 text-accent-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L13.5 9.5L21 11L13.5 12.5L12 20L10.5 12.5L3 11L10.5 9.5L12 2Z"/></svg>
+            </div>
+            <p class="text-[12px] text-gray-500">© 2026 Nongkiw Store. All rights reserved.</p>
+        </footer>
+
+    </div> <!-- End of Master Wrapper -->
+
+
+    <!-- Modals Section -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 modal flex justify-center items-center p-4" onclick="closeAllModals(event)">
+        
+        <!-- Modal 1: บริการ & วิธีการสั่งซื้อ -->
+        <div id="modal-services" class="modal-content hidden w-full max-w-sm bg-dark-card border border-accent-blue/50 rounded-3xl overflow-hidden shadow-glow-blue relative" onclick="event.stopPropagation()">
+            <div class="bg-gradient-to-r from-dark-bg to-accent-blue/20 p-4 border-b border-accent-blue/30 flex justify-between items-center">
+                <h3 class="text-lg text-accent-blue flex items-center gap-2 font-semibold">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    บริการ & วิธีการสั่งซื้อ
+                </h3>
+                <button onclick="closeAllModals()" class="text-gray-400 hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+            </div>
+            <div class="p-5 space-y-4 max-h-[70vh] overflow-y-auto custom-scroll text-sm">
+                <!-- บริการทั้งหมด -->
+                <div>
+                    <h4 class="text-accent-blue font-semibold border-b border-gray-800 pb-1 mb-2">⚡ บริการทั้งหมด</h4>
+                    <ul class="list-disc list-inside space-y-1 text-gray-300 text-xs">
+                        <li>รับดันแรงค์ 4v4</li>
+                        <li>เติมไนโตร (Nitro)</li>
+                        <li>กดกรอบเอฟเฟกต์</li>
+                    </ul>
+                    <p class="text-[11px] text-emerald-400 mt-2">✨ งานไว งานเร็ว มีสตรีม/แชร์จอให้ดูได้ตลอดงาน</p>
+                </div>
+
+                <!-- How to Order -->
+                <div class="bg-black/40 p-3 rounded-xl border border-gray-800">
+                    <h4 class="text-accent-cyan font-semibold mb-2 text-xs">📝 HOW TO ORDER (ขั้นตอนการสั่งซื้อ)</h4>
+                    <ol class="list-decimal list-inside space-y-1 text-gray-300 text-xs">
+                        <li>ทักแชตเพจแจ้งรายละเอียดงานที่ต้องการ</li>
+                        <li>ทางร้านประเมินและแจ้งราคา (ทักมาคุยก่อนได้)</li>
+                        <li>โอนเงินเพื่อเริ่มงาน <span class="text-rose-400">(ไม่มีคืนเงินทุกกรณี)</span></li>
+                        <li>รอเริ่มงาน (ระยะเวลาขึ้นอยู่กับคิวช่วงนั้น)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 2: ตัวอย่างงาน (Portfolio Grid) -->
+        <div id="modal-portfolio" class="modal-content hidden w-full max-w-md bg-dark-card border border-accent-cyan/50 rounded-3xl overflow-hidden shadow-glow-cyan relative" onclick="event.stopPropagation()">
+            <div class="bg-gradient-to-r from-dark-bg to-accent-cyan/20 p-4 border-b border-accent-cyan/30 flex justify-between items-center">
+                <h3 class="text-lg text-accent-cyan flex items-center gap-2 font-semibold">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    ตัวอย่างผลงาน
+                </h3>
+                <button onclick="closeAllModals()" class="text-gray-400 hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+            </div>
+            
+            <!-- Grid รูปภาพสี่เหลี่ยมเรียงคู่ 2 รูปข้างกัน -->
+            <div class="p-4 max-h-[70vh] overflow-y-auto custom-scroll">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="aspect-square bg-gray-800 rounded-xl border border-gray-700 overflow-hidden flex items-center justify-center relative group">
+                        <img src="https://via.placeholder.com/300x300/0f172a/38bdf8?text=Sample+1" alt="ตัวอย่างงาน 1" class="w-full h-full object-cover">
+                    </div>
+                    <div class="aspect-square bg-gray-800 rounded-xl border border-gray-700 overflow-hidden flex items-center justify-center relative group">
+                        <img src="https://via.placeholder.com/300x300/0f172a/38bdf8?text=Sample+2" alt="ตัวอย่างงาน 2" class="w-full h-full object-cover">
+                    </div>
+                    <div class="aspect-square bg-gray-800 rounded-xl border border-gray-700 overflow-hidden flex items-center justify-center relative group">
+                        <img src="https://via.placeholder.com/300x300/0f172a/38bdf8?text=Sample+3" alt="ตัวอย่างงาน 3" class="w-full h-full object-cover">
+                    </div>
+                    <div class="aspect-square bg-gray-800 rounded-xl border border-gray-700 overflow-hidden flex items-center justify-center relative group">
+                        <img src="https://via.placeholder.com/300x300/0f172a/38bdf8?text=Sample+4" alt="ตัวอย่างงาน 4" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <p class="text-center text-xs text-gray-500 mt-4">* ภาพตัวอย่างผลงานการให้บริการจากลูกค้าจริง</p>
+            </div>
+        </div>
+
+        <!-- Modal 3: บัญชีชำระเงิน -->
+        <div id="modal-payment" class="modal-content hidden w-full max-w-sm bg-dark-card border border-emerald-500/50 rounded-3xl overflow-hidden relative" onclick="event.stopPropagation()">
+            <div class="bg-gradient-to-r from-dark-bg to-emerald-950/40 p-4 border-b border-emerald-500/30 flex justify-between items-center">
+                <h3 class="text-lg text-emerald-400 flex items-center gap-2 font-semibold">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    ช่องทางชำระเงิน
+                </h3>
+                <button onclick="closeAllModals()" class="text-gray-400 hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+            </div>
+            <div class="p-5 space-y-4 text-center">
+                <img src="payment.png" alt="Payment QR / Banner" class="w-full rounded-xl border border-gray-800 object-cover">
+                
+                <div class="space-y-2 text-xs">
+                    <div class="p-3 bg-black/60 rounded-xl border border-emerald-500/20">
+                        <p class="text-gray-400">กสิกรไทย (KBANK)</p>
+                        <p class="text-base font-bold text-emerald-400 tracking-wider">206-1-32878-8</p>
+                    </div>
+                    <div class="p-3 bg-black/60 rounded-xl border border-orange-500/20">
+                        <p class="text-gray-400">TrueMoney Wallet</p>
+                        <p class="text-base font-bold text-orange-400 tracking-wider">0834214076</p>
+                    </div>
+                </div>
+
+                <p class="text-[11px] text-rose-400 bg-rose-950/30 p-2 rounded-lg border border-rose-900/50">
+                    ⚠️ โอนก่อนเริ่มงานเท่านั้น / ทางร้านมีบัญชีเดียวตามนี้ กรุณาตรวจสอบชื่อก่อนโอนทุกครั้ง
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modals Script -->
+    <script>
+        const backdrop = document.getElementById('modal-backdrop');
+        const modals = ['modal-services', 'modal-portfolio', 'modal-payment'];
+
+        function openModal(id) {
+            modals.forEach(mId => {
+                const el = document.getElementById(mId);
+                if (el) el.classList.add('hidden');
+            });
+            const target = document.getElementById(id);
+            if (target) {
+                target.classList.remove('hidden');
+                backdrop.classList.add('active');
+            }
+        }
+
+        function closeAllModals(e) {
+            if (e && e.target !== backdrop) return;
+            backdrop.classList.remove('active');
+            setTimeout(() => {
+                modals.forEach(mId => {
+                    const el = document.getElementById(mId);
+                    if (el) el.classList.add('hidden');
+                });
+            }, 300);
+        }
+    </script>
+</body>
+</html>
